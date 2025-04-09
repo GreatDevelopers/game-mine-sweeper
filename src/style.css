@@ -1,3 +1,4 @@
+/* Basic styling for the body to center content */
 body {
     font-family: sans-serif;
     display: flex;
@@ -5,6 +6,7 @@ body {
     align-items: center;
 }
 
+/* Grid layout for the minesweeper board */
 .grid {
     display: grid;
     padding: 10px;
@@ -13,6 +15,7 @@ body {
     margin-bottom: 10px;
 }
 
+/* Default cell appearance */
 .cell {
     width: 30px;
     height: 30px;
@@ -28,10 +31,12 @@ body {
     box-shadow: inset 1px 1px 2px white, inset -1px -1px 2px #888;
 }
 
+/* Appearance when user clicks the cell */
 .cell:active {
     box-shadow: inset -1px -1px 2px white, inset 1px 1px 2px #888;
 }
 
+/* Revealed cell style */
 .revealed {
     background-color: #ddd;
     cursor: default;
@@ -39,16 +44,19 @@ body {
     border: 1px solid #ccc;
 }
 
+/* Mine cell styling */
 .mine {
     background-color: red;
     color: black;
 }
 
+/* Flagged cell with flag emoji */
 .flagged::after {
     content: '🚩';
     font-size: 18px;
 }
 
+/* Color coding for number of adjacent mines */
 .c1 { color: blue; }
 .c2 { color: green; }
 .c3 { color: red; }
@@ -58,17 +66,20 @@ body {
 .c7 { color: black; }
 .c8 { color: gray; }
 
+/* Status display styling */
 #status {
     margin-top: 10px;
     font-size: 1.2em;
 }
 
+/* Button styling */
 button {
     margin-top: 10px;
     padding: 5px 10px;
     font-size: 1em;
 }
 
+/* Instruction text styling */
 #instructions {
     font-size: 0.9em;
     color: #555;

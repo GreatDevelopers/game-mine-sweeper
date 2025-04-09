@@ -1,17 +1,21 @@
+// Constants for grid size and mine count
 const GRID_SIZE = 10;
 const MINE_COUNT = 10;
 
-let grid = [];
-let revealed = new Set();
-let flagged = new Set();
-let gameOver = false;
-let firstClick = true;
+// Game state variables
+let grid = [];                  // Stores actual board data (numbers & mines)
+let revealed = new Set();       // Tracks revealed cells
+let flagged = new Set();        // Tracks flagged cells
+let gameOver = false;           // Flag to prevent further interaction
+let firstClick = true;          // Used to avoid placing a mine on the first clicked cell
 
+// DOM references
 const boardElement = document.getElementById('minesweeper');
 let mineCountElement = document.getElementById('mine-count');
 let flagCountElement = document.getElementById('flag-count');
 const statusElement = document.getElementById('status');
 
+// Initialize grid with empty values (zeros)
 function createGridData() {
     grid = [];
     for (let y = 0; y < GRID_SIZE; y++) {
@@ -19,17 +23,22 @@ function createGridData() {
     }
 }
 
+// Place mines randomly, avoiding the first clicked cell and its neighbors
 function placeMines(firstClickX, firstClickY) {
     let minesPlaced = 0;
     while (minesPlaced < MINE_COUNT) {
         const x = Math.floor(Math.random() * GRID_SIZE);
         const y = Math.floor(Math.random() * GRID_SIZE);
+
+        // Skip placing a mine near the first clicked cell
         const isStartArea = Math.abs(x - firstClickX) <= 1 && Math.abs(y - firstClickY) <= 1;
 
         if (grid[y][x] !== 'M' && !isStartArea) {
             grid[y][x] = 'M';
             minesPlaced++;
         }
+
+        // Fallback to ensure enough mines even in edge cases
         if (minesPlaced < MINE_COUNT && (GRID_SIZE * GRID_SIZE - minesPlaced) <= 9 && isStartArea) {
             if (grid[y][x] !== 'M') {
                 grid[y][x] = 'M';
@@ -38,9 +47,11 @@ function placeMines(firstClickX, firstClickY) {
         }
     }
 
+    // Calculate adjacent mine numbers for all cells
     for (let y = 0; y < GRID_SIZE; y++) {
         for (let x = 0; x < GRID_SIZE; x++) {
             if (grid[y][x] === 'M') continue;
+
             let count = 0;
             for (let dy = -1; dy <= 1; dy++) {
                 for (let dx = -1; dx <= 1; dx++) {
@@ -57,11 +68,13 @@ function placeMines(firstClickX, firstClickY) {
     }
 }
 
+// Reveal logic for a single cell and its neighbors (recursive flood fill)
 function revealCell(x, y) {
     if (gameOver || x < 0 || x >= GRID_SIZE || y < 0 || y >= GRID_SIZE) return;
     const key = `${x},${y}`;
     if (revealed.has(key) || flagged.has(key)) return;
 
+    // On first click, delay mine placement
     if (firstClick) {
         placeMines(x, y);
         firstClick = false;
@@ -86,6 +99,7 @@ function revealCell(x, y) {
         cellElement.textContent = grid[y][x];
         cellElement.classList.add(`c${grid[y][x]}`);
     } else {
+        // Flood fill blank area
         for (let dy = -1; dy <= 1; dy++) {
             for (let dx = -1; dx <= 1; dx++) {
                 if (dx === 0 && dy === 0) continue;
@@ -96,6 +110,7 @@ function revealCell(x, y) {
     checkWin();
 }
 
+// Right-click: flag or unflag a cell
 function flagCell(x, y) {
     if (gameOver || x < 0 || x >= GRID_SIZE || y < 0 || y >= GRID_SIZE) return;
     const key = `${x},${y}`;
@@ -115,12 +130,14 @@ function flagCell(x, y) {
     updateFlagCount();
 }
 
+// Update flag count display
 function updateFlagCount() {
     if (flagCountElement) {
         flagCountElement.textContent = flagged.size;
     }
 }
 
+// Check if player has won
 function checkWin() {
     const totalCells = GRID_SIZE * GRID_SIZE;
     if (revealed.size === totalCells - MINE_COUNT && !gameOver) {
@@ -128,6 +145,7 @@ function checkWin() {
     }
 }
 
+// Game over: reveal all mines and show message
 function endGame(isWin) {
     if (gameOver) return;
     gameOver = true;
@@ -135,6 +153,7 @@ function endGame(isWin) {
     statusElement.textContent = isWin ? '🎉 You Win! 🎉' : '💥 Game Over! 💥';
 }
 
+// Reveal all mines and flag misflags
 function revealAllMines(isWin) {
     for (let y = 0; y < GRID_SIZE; y++) {
         for (let x = 0; x < GRID_SIZE; x++) {
@@ -159,38 +178,50 @@ function revealAllMines(isWin) {
     }
 }
 
+// Create the grid DOM and attach event listeners
 function createBoardDOM() {
     boardElement.innerHTML = '';
     boardElement.style.gridTemplateColumns = `repeat(${GRID_SIZE}, 30px)`;
+
     for (let y = 0; y < GRID_SIZE; y++) {
         for (let x = 0; x < GRID_SIZE; x++) {
             const cell = document.createElement('div');
             cell.className = 'cell';
             cell.dataset.x = x;
             cell.dataset.y = y;
+
+            // Left click = reveal
             cell.addEventListener('click', () => revealCell(x, y));
+
+            // Right click = flag
             cell.addEventListener('contextmenu', (e) => {
                 e.preventDefault();
                 flagCell(x, y);
             });
+
             boardElement.appendChild(cell);
         }
     }
 }
 
+// Reset game state and regenerate grid
 function resetGame() {
     grid = [];
     revealed.clear();
     flagged.clear();
     gameOver = false;
     firstClick = true;
+
+    // Reset status display
     statusElement.innerHTML = `Mines: <span id="mine-count">${MINE_COUNT}</span> | Flags: <span id="flag-count">0</span>`;
     mineCountElement = document.getElementById('mine-count');
     flagCountElement = document.getElementById('flag-count');
+
     createGridData();
     createBoardDOM();
     updateFlagCount();
     if (mineCountElement) mineCountElement.textContent = MINE_COUNT;
 }
 
+// Start the game
 resetGame();

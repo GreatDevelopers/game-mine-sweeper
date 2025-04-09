@@ -3,15 +3,32 @@
 <head>
     <meta charset="UTF-8"> 
     <title>Minesweeper</title>
+
+    <!-- Link to external stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+    <!-- Game Title -->
     <h1>Minesweeper</h1>
-    <p id="instructions">💡 Left-click to reveal a cell. Right-click to flag a cell as a mine.</p>
-    <div id="status">Mines: <span id="mine-count"></span> | Flags: <span id="flag-count">0</span></div>
+
+    <!-- Game instructions -->
+    <p id="instructions">
+        💡 Left-click to reveal a cell. Right-click to flag a cell as a mine.
+    </p>
+
+    <!-- Game status showing mine count and flag count -->
+    <div id="status">
+        Mines: <span id="mine-count"></span> | Flags: <span id="flag-count">0</span>
+    </div>
+
+    <!-- Grid container for the Minesweeper board -->
     <div id="minesweeper" class="grid"></div>
+
+    <!-- Reset button to restart the game -->
     <button onclick="resetGame()">Reset Game</button>
 
+    <!-- Game logic script -->
     <script src="mineSweep.js"></script>
 </body>
 </html>
