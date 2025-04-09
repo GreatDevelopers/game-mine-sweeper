@@ -1,0 +1,76 @@
+body {
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.grid {
+    display: grid;
+    padding: 10px;
+    background-color: #ccc;
+    border: 2px solid #999;
+    margin-bottom: 10px;
+}
+
+.cell {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #999;
+    background-color: #bbb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    user-select: none;
+    box-shadow: inset 1px 1px 2px white, inset -1px -1px 2px #888;
+}
+
+.cell:active {
+    box-shadow: inset -1px -1px 2px white, inset 1px 1px 2px #888;
+}
+
+.revealed {
+    background-color: #ddd;
+    cursor: default;
+    box-shadow: none;
+    border: 1px solid #ccc;
+}
+
+.mine {
+    background-color: red;
+    color: black;
+}
+
+.flagged::after {
+    content: '🚩';
+    font-size: 18px;
+}
+
+.c1 { color: blue; }
+.c2 { color: green; }
+.c3 { color: red; }
+.c4 { color: purple; }
+.c5 { color: maroon; }
+.c6 { color: turquoise; }
+.c7 { color: black; }
+.c8 { color: gray; }
+
+#status {
+    margin-top: 10px;
+    font-size: 1.2em;
+}
+
+button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    font-size: 1em;
+}
+
+#instructions {
+    font-size: 0.9em;
+    color: #555;
+    margin-bottom: 5px;
+}
