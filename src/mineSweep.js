@@ -150,7 +150,7 @@ function endGame(isWin) {
     if (gameOver) return;
     gameOver = true;
     revealAllMines(isWin);
-    statusElement.textContent = isWin ? '🎉 You Win! 🎉' : '💥 Game Over! 💥';
+    statusElement.textContent = isWin ? '🎉 You Win! 🎉' : '💥 You lost! 💥';
 }
 
 // Reveal all mines and flag misflags
