@@ -1,0 +1,56 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.inputs {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+fieldset {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+legend {
+  font-weight: bold;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+}
+
+input[type="number"] {
+  margin: 5px 5px 5px 0;
+  width: 100px;
+}
+
+.buttons {
+  margin-top: 15px;
+}
+
+canvas {
+  background: white;
+  border: 1px solid #ccc;
+  display: block;
+  margin: 0 auto;
+  border-radius: 5px;
+}

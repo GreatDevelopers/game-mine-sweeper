@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>3-Story Building Vibration Simulation</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>3-Story Building Vibration Simulator</h1>
+
+    <div class="inputs">
+      <fieldset>
+        <legend>Mass per Story (kg)</legend>
+        <input type="number" id="mass1" value="1000" title="Mass of story 1 in kg"/>
+        <input type="number" id="mass2" value="1000" title="Mass of story 2 in kg"/>
+        <input type="number" id="mass3" value="1000" title="Mass of story 3 in kg"/>
+      </fieldset>
+
+      <fieldset>
+        <legend>Stiffness per Story (N/m)</legend>
+        <input type="number" id="stiff1" value="20000" title="Stiffness of story 1 in N/m"/>
+        <input type="number" id="stiff2" value="20000" title="Stiffness of story 2 in N/m"/>
+        <input type="number" id="stiff3" value="20000" title="Stiffness of story 3 in N/m"/>
+      </fieldset>
+
+      <label for="damping">Damping Ratio (e.g., 0.05 for 5%)</label>
+      <input type="number" step="0.01" id="damping" value="0.05" title="Enter damping ratio (between 0 and 1)"/>
+
+      <label for="scale">Amplitude Scale Factor</label>
+      <input type="number" step="0.1" id="scale" value="1.0" title="Use to scale the visual vibration amplitude"/>
+
+      <fieldset>
+        <legend>Select Mode Shape</legend>
+        <label><input type="radio" name="mode" value="1" checked /> Mode 1</label>
+        <label><input type="radio" name="mode" value="2" /> Mode 2</label>
+        <label><input type="radio" name="mode" value="3" /> Mode 3</label>
+      </fieldset>
+
+      <div class="buttons">
+        <button onclick="startAnimation()">Start</button>
+        <button onclick="stopAnimation()">Stop</button>
+      </div>
+
+      <p><strong>Natural Frequency:</strong> <span id="frequency">--</span> Hz</p>
+    </div>
+
+    <canvas id="simCanvas" width="400" height="400"></canvas>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
